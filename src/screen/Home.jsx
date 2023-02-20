@@ -4,11 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export const HomeScreen = () => {
   return (
-    <SafeAreaView>
-        <View>
-      
-      
-    </View>
+    <SafeAreaView style={{backgroundColor:'#26272a', height:"100%"}}>
+        <View >
+          
+        </View>
     </SafeAreaView>
   
   )

@@ -1,16 +1,43 @@
-import { Pressable, StyleSheet, Text, View,Dimensions } from 'react-native'
+import { Pressable, StyleSheet, Text, View,Dimensions,ActivityIndicator } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AntDesign } from '@expo/vector-icons'
 import { TextInput } from 'react-native-paper'
+import { loginUser } from '../Features/AuthSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { StatusBar } from 'expo-status-bar'
+
+
+
+
 
 const width = Dimensions.get('window').width;
 const height =Dimensions.get('window').height;
 
 export const Login = ({navigation}) => {
+
+const {isLoading,error} = useSelector((state)=>state.auth)  
+const dispatch = useDispatch();
+const [userName, setUserName] = useState('');
+const [password, setPassword] = useState('');
+
+
+const handleLogin = () => {
+  const data = {
+    username : userName,
+    password : password
+  };
+  //  console.log(data);
+   dispatch(loginUser(data))
+}
+
+
   return (
+    <>
+    <StatusBar backgroundColor='#26272a' style='light' />
     <SafeAreaView>
-        <View style={{padding:20, backgroundColor:'#26272a', borderRadius: 5, width:width,height:height}}>
+        <View style={{padding:20, backgroundColor:'#26272a', width:width,height:height}}>
       <View style={{flexDirection:'row',}}>
         {/* <AntDesign name="arrowleft" size={26} color="orange" /> */}
         <Text style={{fontSize:22, fontWeight:'600', color:'white', paddingLeft:15}}>Login</Text>
@@ -23,12 +50,12 @@ export const Login = ({navigation}) => {
         <Text style={{color:'white', textAlign:'center', fontSize:18}}>Please Login to enjoy more benefits and we {'\n'} won't let you go.</Text>
       </View>
       <View>
-       
+       <View></View>
         <TextInput textColor='white'
-        label='Email Address'
-        keyboardType='email-address'
+        label='User Name'
+        keyboardType='default'
         activeUnderlineColor='orange'
-        
+        onChangeText={(text) => setUserName(text)}
         style={{backgroundColor:'#26272a',color:'white'}}
         />
        
@@ -38,6 +65,7 @@ export const Login = ({navigation}) => {
         keyboardType='default'
         activeUnderlineColor='orange'
         secureTextEntry={true}
+        onChangeText= {(password) => setPassword(password)}
         textColor='white'
         style={{backgroundColor:'#26272a'}}
         />
@@ -45,11 +73,18 @@ export const Login = ({navigation}) => {
       <View style={{flexDirection:'column'}}>
         <Pressable style={{paddingTop:15}}> 
           <Text style={{color:'orange', textAlign:'right'}}> Forgot Password ?</Text>
+
         </Pressable>
         <View style={{paddingTop:22}}>
-           <Pressable onPress={() => navigation.navigate('MainNavigates')} style={{backgroundColor:'orange', borderRadius:5, alignItems:'center', justifyContent:'center', padding:12,}}>
+           <Pressable onPress={handleLogin} style={{backgroundColor:'orange', borderRadius:5, alignItems:'center', justifyContent:'center', padding:12,}}>
             <Text style={{fontSize:18}}>Get Started</Text>
            </Pressable>
+           {isLoading == true ? (<ActivityIndicator color={"gold"} size={"small"}/>): null}
+           {error !== "" ?(
+            <Text style={{color:'red'}}>
+              {error}
+            </Text>
+           ) : null}
         </View>
         <Text style={{color:'white', paddingTop:12, textAlign:'center', fontSize:12}}>or simply login with</Text>
         <View style={{paddingTop:22}} >
@@ -73,6 +108,7 @@ export const Login = ({navigation}) => {
       </View>
     </View>
     </SafeAreaView>
+    </>
   )
 }
 

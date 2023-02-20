@@ -3,14 +3,37 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AntDesign } from '@expo/vector-icons'
 import { TextInput } from 'react-native-paper'
+import { signUpData } from '../Features/AuthSlice'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+
+
+
 
 const width = Dimensions.get('window').width;
 const height =Dimensions.get('window').height;
 
 export const Signup = ({navigation}) => {
+
+const dispatch = useDispatch();
+const [userName, setUserName] = useState('');
+const [userEmail, setUserEmail] = useState('');
+const [userPassword, setUserPassword] = useState('');
+
+
+const handleSignUp = () => {
+  const data = {
+    username : userName,
+    email : userEmail,
+    password : userPassword,
+  }
+  console.log(data)
+  dispatch(signUpData(data))
+}
+
   return (
     <SafeAreaView>
-        <View style={{padding:20, backgroundColor:'#26272a', borderRadius: 5, width:width,height:height}}>
+        <View style={{padding:20, backgroundColor:'#26272a', width:width,height:height}}>
       <View style={{flexDirection:'row',}}>
         <AntDesign onPress={() => navigation.navigate('Login')} name="arrowleft" size={26} color="orange" />
         <Text style={{fontSize:22, fontWeight:'600', color:'white', paddingLeft:15}}>Register</Text>
@@ -25,27 +48,29 @@ export const Signup = ({navigation}) => {
       <View>
        
         <TextInput 
-        label='Email Address'
-        keyboardType='email-address'
+        label='User Name'
+        keyboardType='default'
         activeUnderlineColor='orange'
+        onChangeText={(text) => setUserName(text)}
         textColor='white'
         style={{backgroundColor:'#26272a'}}
         />
        
         <TextInput 
         baseColor ='white'
-        label='Password'
-        keyboardType='default'
+        label='Email Address'
+        keyboardType='email-address'
+        onChangeText={(text) => setUserEmail(text)}
         textColor='white'
-        secureTextEntry={true}
         activeUnderlineColor='orange'
         style={{backgroundColor:'#26272a'}}
         />
          <TextInput 
         baseColor ='white'
-        label='Confirm Password'
+        label='Password'
         keyboardType='default'
         activeUnderlineColor='orange'
+        onChangeText={(password) => setUserPassword(password)}
         textColor='white'
         secureTextEntry={true}
         style={{backgroundColor:'#26272a'}}
@@ -53,7 +78,7 @@ export const Signup = ({navigation}) => {
       </View>
       <View style={{flexDirection:'column'}}>
         <View style={{paddingTop:22}}>
-           <Pressable style={{backgroundColor:'orange', borderRadius:5, alignItems:'center', justifyContent:'center', padding:12,}}>
+           <Pressable onPress={handleSignUp} style={{backgroundColor:'orange', borderRadius:5, alignItems:'center', justifyContent:'center', padding:12,}}>
             <Text style={{fontSize:18}}>SIGN UP</Text>
            </Pressable>
         </View>

@@ -1,6 +1,7 @@
 import { ImageBackground, StyleSheet, Text, View, Dimensions, Pressable } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { StatusBar } from 'expo-status-bar';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').width;
@@ -8,7 +9,9 @@ const image = {uri:'https://www.xtrafondos.com/en/descargar.php?id=3853&vertical
 
 export const HeroScreen = ({navigation}) => {
   return (
-    <SafeAreaView>
+    // <SafeAreaView>
+    <>
+      <StatusBar transparent style='light' />
         <ImageBackground source={image} resizeMode='cover' style={{justifyContent:'center', height:'100%', borderRadius:10}} imageStyle={{
             opacity: 0.8, backgroundColor:'#302e2c'
         }}>
@@ -24,7 +27,8 @@ export const HeroScreen = ({navigation}) => {
                 </View>
             </View>
         </ImageBackground>
-    </SafeAreaView>
+    {/* // </SafeAreaView> */}
+    </>
   )
 }
 

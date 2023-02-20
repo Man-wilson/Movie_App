@@ -9,9 +9,12 @@ import {
   Dimensions,
   ScrollView,
   ImageBackground,
+  Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
+
+
 
 // const image = require('../../../assets/searchicon.png')
 const image = {uri:'https://i.postimg.cc/CxTFd7N9/Screenshot-2023-02-08-155058.png'}
@@ -19,7 +22,7 @@ const image = {uri:'https://i.postimg.cc/CxTFd7N9/Screenshot-2023-02-08-155058.p
 const height = Dimensions.get("screen").height;
 const width = Dimensions.get("screen").width;
 
-export const Work = () => {
+export const Work = ({navigation}) => {
   const [Search, setSearch] = React.useState("");
   const [getSearch, setGetSearch] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -116,6 +119,7 @@ export const Work = () => {
                       width: width,
                     }}
                   >
+                    <Pressable key={item.id} onPress={() => navigation.navigate('Detail', item)}>
                     <Image source={{ uri:`https://image.tmdb.org/t/p/w500/${item.poster_path}`}} style={{width:220,height:120, borderRadius:10, marginVertical:10}} />
                     <View>
                       <Text
@@ -139,6 +143,7 @@ export const Work = () => {
                         {item.release_date}
                       </Text>
                     </View>
+                    </Pressable>
                   </View>
                 );
               })}
@@ -170,3 +175,25 @@ export const Work = () => {
     </SafeAreaView>
   );
 };
+
+
+// <Pressable key={item.id} onPress={() => navigation.navigate('Detail', item)}>
+//                 <ImageBackground 
+//                 source={{
+//                   uri:`https://image.tmdb.org/t/p/w500/${item.backdrop_path}`
+//                 }}
+//                  resizeMode='cover'
+//                   imageStyle={{
+//                   borderRadius:10
+//                  }}
+//                  style={{
+//                   width:345,
+//                   height:230,
+//                   marginHorizontal:9
+//                  }}
+//                  >
+//                   <Text style={{flexDirection:'column',justifyContent:'flex-end',marginTop:140, color:'white',fontSize:20,fontWeight:'bold',marginHorizontal:10}}>{item.title}</Text>
+//                   <Text  style={{color:'white', marginHorizontal:10}}>{item.release_date}</Text>
+//                  </ImageBackground>
+//                  </Pressable>
+              

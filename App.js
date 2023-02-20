@@ -11,12 +11,9 @@ import { store } from './src/store';
 
 export default function App() {
   return (
+   <Provider store={store}>
     <RootNavigation />
-    // <SearchResaults />
-  //  <Provider store={store}>
-  //     <CountScreen />
-  //  </Provider>
-//  <Work />
+   </Provider>
 
   );
 }

@@ -12,7 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 
 function HomePage() {
   return (
-  <View style={{flex:1, backgroundColor:'black'}}>
+  <View style={{flex:1, backgroundColor:'#26272a'}}>
     <HeaderTop />
       <Tab.Navigator screenOptions={{
         headerShown: false,

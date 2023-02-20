@@ -8,7 +8,7 @@ export * from './CardSearch/card'
 export * from './SecondTopScreens/Downloads'
 export * from './SecondTopScreens/List'
 export * from '../screen/HomeScreen/SearchResaults'
-
+export * from '../screen/HomeScreen/EditProfile'
 
 
 

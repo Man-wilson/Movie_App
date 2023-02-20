@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageBackground, Dimensions, Pressable } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, Dimensions, Pressable, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient} from 'expo-linear-gradient'
@@ -20,14 +20,17 @@ const height = Dimensions.get('screen').height
 const width = Dimensions.get('screen').width
 
 
+
 const getYoutubeKy = async () => {
     const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${detail.id}/videos?api_key=d9cf23cf23f14a29b69eccb99afeaeff&language=en-US`) 
 
     // console.log(data);
     setMovieId(data);
 }
-
-
+let message
+if (movieId?.results){
+message = `https://www.youtube.com/watch?v=${movieId.results[0].key}`
+}
 useEffect(() => {
     getYoutubeKy();
     setDetail(route.params)
@@ -84,9 +87,12 @@ useEffect(() => {
                     <Feather name={playIcon} style={{paddingRight:5}} size={20} color="black" />
                     <Text style={{fontSize:15, fontWeight:'600'}}>{playText}</Text>
                 </Pressable>
-                <Pressable style={{backgroundColor:'#26282d', padding:10, flexDirection:'row', width:180, height:40, alignItems:'center', justifyContent:'center', borderRadius:5, padding:5}}>
+                <Pressable onPress={()=>{
+                Linking.openURL(`whatsapp://send?text=${message}`)
+                }}
+                 style={{backgroundColor:'#26282d', padding:10, flexDirection:'row', width:180, height:40, alignItems:'center', justifyContent:'center', borderRadius:5, padding:5}}>
                     <Entypo name="plus" size={22} style={{paddingRight:5}} color="orange" />
-                    <Text style={{fontSize:15, fontWeight:'600', color:'white'}}>My List</Text>
+                    <Text style={{fontSize:15, fontWeight:'600', color:'white'}}>Share</Text>
                 </Pressable>
             </View>
             <View style={{paddingTop: 15,}}>
